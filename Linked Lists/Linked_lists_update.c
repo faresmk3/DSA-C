@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* a struct that represents a node of a linked list, data is the value of the node
+and struct Node* next is basically the pointer to the next node of the linked list*/
 struct Node {
   int data;
   struct Node* next; // store the link of the next node in the linked list
 };
 
+// we should ofc have a pointer towards the head of the list
 struct Node* head; // address of the head pointer to the linked list
 
+/* insert a value into the linked list*/
 void Insert(int value) {
   struct Node* temp1 = (struct Node*) malloc(sizeof(struct Node));
   temp1->next = head; // or (*temp1).next = NULL;
@@ -15,6 +19,7 @@ void Insert(int value) {
   head = temp1;
 }
 
+/* print the values of the linked list*/
 void Print() {
   struct Node* temp = head;
   printf("List is: ");
@@ -25,6 +30,7 @@ void Print() {
   printf("\n");
 }
 
+/* insert an element into the linked list at the (n th) index*/
 void Insert_nth(int value, int index) {
   struct Node* temp1 = (struct Node*) malloc(sizeof(struct Node));
   temp1->next = head;
@@ -42,7 +48,7 @@ void Insert_nth(int value, int index) {
   temp2->next = temp1;
 }
 
-
+/* delete a node/elt of the linked list at a certain index */
 void Delete(int index) {
   struct Node* temp1  = head;
   if (index == 1) {
@@ -60,6 +66,7 @@ void Delete(int index) {
 
 }
 
+/* delete a node in the linked list based off of a given value in the parameter*/
 void Delete_value(int value) {
   if (head == NULL) { // list is empty, no need to do anything
     return;
@@ -84,6 +91,46 @@ void Delete_value(int value) {
   }
 }
 
+/* reverse the linked list */
+void Reverse() {
+  struct Node *prev = NULL; // NULL regardless of the state of the list (empty or one elt or more)
+  struct Node *current = head; // the only elt in the list if the list contains one elt
+  struct Node *next = head->next; //NULL if there's one elt in the list
+  while(next != NULL) {
+    if (current == NULL) {
+      return;
+      // the list is empty, no need for any presedures
+    }
+    current->next = prev;
+    prev = current;
+    current = next;
+    next = next->next;
+  }
+  current->next = prev; // these two lines work prefectly even if the linked list is only composed of one elt
+  head = current;
+}
+
+void Reverse_V2() {
+  struct Node *prev, *current, *next;
+  prev = NULL;
+  current = head;
+  while(current != NULL) {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+  head = prev;
+}
+
+void ReversePrint(struct Node* p) {
+  if (p == NULL) {
+    return;
+  }
+  ReversePrint(p->next);
+  printf("%d", p->data);
+}
+
 int main(void) {
   head = NULL;
   Insert(2);
@@ -92,14 +139,14 @@ int main(void) {
   Insert(5);
   Print();
   int n;
+  //Reverse();
   //printf("Enter a Position: \n");
-  printf("Enter a value to delete from the list given above: \n");
-  scanf("%d", &n);
-  Delete_value(n);
+  //printf("Enter a value to delete from the list given above: \n");
+  //scanf("%d", &n);
+  //Delete_value(n);
   //Delete(n);
-  Print();
-  
-  
+  ReversePrint(head);
+
   return 0;
   
 }
