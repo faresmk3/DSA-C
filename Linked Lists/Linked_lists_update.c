@@ -123,12 +123,27 @@ void Reverse_V2() {
   head = prev;
 }
 
+/* print the elements of the linked list in the reversed order */
 void ReversePrint(struct Node* p) {
   if (p == NULL) {
     return;
   }
   ReversePrint(p->next);
   printf("%d", p->data);
+}
+
+/* revere the elements of the list recursively (using recursion) */
+void ReverseRecursive(struct Node* prev, struct Node* current, struct Node* next) {
+  if (next == NULL) {
+    head = current;
+    return;
+  }
+  prev = current;
+  current = next;
+  next = next->next;
+  ReverseRecursive(prev, current, next);
+  current->next = prev;
+  prev->next = NULL;
 }
 
 int main(void) {
@@ -145,8 +160,9 @@ int main(void) {
   //scanf("%d", &n);
   //Delete_value(n);
   //Delete(n);
-  ReversePrint(head);
-
+  // ReversePrint(head);
+  ReverseRecursive(NULL, head, head->next);
+  Print();
   return 0;
   
 }
