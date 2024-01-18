@@ -9,8 +9,24 @@ struct Node {
 
 struct Node* head;
 
+/* creates a new node of our chained doubly linked list */
+struct Node* CreateNewNode(int value) {
+  struct Node* node = (struct Node*) malloc(sizeof(struct Node));
+  (*node).data = value;
+  (*node).prev = NULL;
+  (*node).next = NULL;
+  return node;
+}
+
+/* inserts an element at head into our chained doubly linked list */
 void InsertAtHead(int value) {
-  // a node inserted at head has no prev node
+  // a node inserted at head has no prev node nor next node
+  struct Node* node = CreateNewNode(value);
+  if (head == NULL) {
+    head = node;
+    return;
+  }
+  /*
   struct Node* node = (struct Node*) malloc(sizeof(struct Node));
   node->data = value; // (*node).data = value
   if (head == NULL) { // the doubly linked list doesn't contain any elements
@@ -19,7 +35,8 @@ void InsertAtHead(int value) {
     head = node;
     return;
   }
-  if (head->next == NULL) {
+  */
+  if (head->next == NULL) { // when we insert a second element to the linked list we fix the links only
     node->next = head;
     node->prev = head;
     head->next = node;
@@ -27,6 +44,9 @@ void InsertAtHead(int value) {
     head = node;
     return;
   }
+
+  // in this case we have to traverse the whole list to get to the last element and fix the links
+  // the next of the last element is the head, the prev if the head is the last element
   struct Node* temp = head;
   while (temp->next != head) {
     temp = temp->next;
@@ -40,6 +60,7 @@ void InsertAtHead(int value) {
   head = node;
 }
 
+/* prints out the values of our chained doubly linked list */
 void Print() {
   struct Node* temp = head;
   while (temp->next != head) {
