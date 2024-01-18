@@ -63,10 +63,10 @@ void InsertAtHead(int value) {
 /* prints out the values of our chained doubly linked list */
 void Print() {
   struct Node* temp = head;
-  while (temp->next != head) {
-    printf("%d", temp->data);
+  do {
+    printf("%d ", temp->data);
     temp = temp->next;
-  }
+  } while (temp != head);
   printf("\n");
 }
 
