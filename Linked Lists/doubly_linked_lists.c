@@ -60,6 +60,7 @@ void InsertAtHead(int value) {
   head = node;
 }
 
+/* inserts a node in the chianed doubly linked list at the end of the list */
 void InsertAtTail(int value) {
   struct Node* node = CreateNewNode(value);
   if (head == NULL) {
@@ -82,6 +83,25 @@ void InsertAtTail(int value) {
   node->prev = temp;
   node->next = head;
   head->prev = node;
+}
+
+void InsertAtNth(int value, int index) {
+  if (head == NULL) {
+    return;
+  }
+  if (index == 1) {
+    InsertAtHead(value);
+    return;
+  }
+  struct Node* node = CreateNewNode(value);
+  struct Node* temp = head;
+  for (int i = 0; i < index-2; i += 1) {
+    temp = temp->next;
+  }
+  node->next = temp->next;
+  temp->next->prev = node;
+  node->prev = node;
+  temp->next = node;
 }
 
 
@@ -108,6 +128,9 @@ int main(void) {
   InsertAtTail(5);
   InsertAtTail(2);
   InsertAtTail(8);
+  Print();
+  InsertAtNth(6,3);
+  InsertAtNth(7,3);
   Print();
   
   return 0;
