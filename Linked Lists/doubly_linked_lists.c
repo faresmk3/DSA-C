@@ -60,6 +60,32 @@ void InsertAtHead(int value) {
   head = node;
 }
 
+void InsertAtTail(int value) {
+  struct Node* node = CreateNewNode(value);
+  if (head == NULL) {
+    head = node;
+    return;
+  }
+  if (head->next == NULL) {
+    head->next = node;
+    node->prev = head;
+    node->next = head;
+    head->prev = node;
+    return;
+  }
+  struct Node* temp = head;
+  while(temp->next != head) {
+    temp = temp->next;
+  }
+
+  temp->next = node;
+  node->prev = temp;
+  node->next = head;
+  head->prev = node;
+}
+
+
+
 /* prints out the values of our chained doubly linked list */
 void Print() {
   struct Node* temp = head;
@@ -73,9 +99,15 @@ void Print() {
 
 int main(void) {
   head = NULL;
+  /*
   InsertAtHead(5);
   InsertAtHead(2);
   InsertAtHead(8);
+  */
+
+  InsertAtTail(5);
+  InsertAtTail(2);
+  InsertAtTail(8);
   Print();
   
   return 0;
