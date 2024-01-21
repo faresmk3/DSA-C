@@ -11,6 +11,10 @@ int currentCapacity; // current number of elements present in the array, helps w
 int *Create(int size)
 {
   int *array = (int *)malloc(size * sizeof(int));
+  if (array == NULL)
+  {
+    return NULL;
+  }
   int *temp = array;
   for (int i = 0; i < size; i += 1)
   {
@@ -231,5 +235,6 @@ int main()
   InsertAtHead(3);
   InsertAtNth(5, 5);
   InsertAtNth(4, 3);
+  free(array);
   return 0;
 }
