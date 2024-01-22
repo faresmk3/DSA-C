@@ -85,6 +85,7 @@ void InsertAtTail(int value) {
   head->prev = node;
 }
 
+/* inserts a node in the chained doubly linked list at a given index or at (nth) position  */
 void InsertAtNth(int value, int index) {
   if (head == NULL) {
     return;
