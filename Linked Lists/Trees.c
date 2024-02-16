@@ -91,7 +91,7 @@ int FindMaxIterate(struct BstNode* root) {
 
 int FindHeight(struct BstNode* root) {
   if (root == NULL) {
-    return -1; // here -1 is not an error return code but rather to balance out the defenition of height
+    return -1; // here -1 is not an error return code but rather to balance out the defenition of height since it'll always return +1 for a leaf node
   }
   return max(FindHeight(root->left), FindHeight(root->right)) + 1;
 }
